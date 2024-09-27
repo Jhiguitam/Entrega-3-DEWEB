@@ -1,0 +1,35 @@
+/* perfil_heroe_buttons.module.css */
+
+.pagarButton {
+    background-color: #4CAF50;
+    /* Color verde */
+    color: white;
+    /* Texto blanco */
+    padding: 12px 24px;
+    /* Espaciado */
+    font-size: 16px;
+    /* Tamaño del texto */
+    border: none;
+    /* Sin borde */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    cursor: pointer;
+    /* Cursor en forma de mano */
+    transition: background-color 0.3s ease;
+    /* Efecto de transición en el hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Sombra para darle algo de profundidad */
+}
+
+.pagarButton:hover {
+    background-color: #45a049;
+    /* Cambiar el color cuando el ratón está sobre el botón */
+}
+
+.pagarButton:active {
+    background-color: #3e8e41;
+    /* Color cuando se hace clic */
+    box-shadow: 0 5px #666;
+    transform: translateY(2px);
+    /* Pequeño efecto de presión */
+}
