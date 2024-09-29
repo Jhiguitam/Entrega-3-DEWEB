@@ -14,7 +14,7 @@ const PerfilHeroe: React.FC = () => {
 
     const fetchHeroProfile = async () => {
         try {
-            const response = await fetch('/api/usuario/2');
+            const response = await fetch('/api/usuario/1');
             if (!response.ok) {
                 throw new Error('Error al obtener el perfil del héroe');
             }
@@ -29,10 +29,33 @@ const PerfilHeroe: React.FC = () => {
     useEffect(() => {
         fetchHeroProfile();
     }, []);
+    // funcion de pago de heroes
+    const handlePayment = async (amount: number, heroId: string) => {
+        try {
+            const response = await fetch('/api/pagos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    usuarioId: '1', // Aquí debes pasar el ID del usuario actual
+                    heroeId: heroId,
+                    amount: amount,
+                }),
+            });
 
-    const handlePayment = (amount: number, heroId: string) => {
-        console.log(`Pagando ${amount} al héroe con ID ${heroId}`);
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Error al realizar el pago');
+            }
+
+            console.log('Pago realizado con éxito:', data);
+        } catch (error) {
+            console.error('Error en el pago:', error);
+        }
     };
+
 
     const indexOfLastReview = currentPage * reviewsPerPage;
     const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
@@ -111,6 +134,7 @@ const PerfilHeroe: React.FC = () => {
                         >
                             Pagar
                         </button>
+
                     </div>
                 </div>
             </div>
