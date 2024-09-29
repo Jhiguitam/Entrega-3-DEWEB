@@ -1,29 +1,34 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import styles from './perfil_heroe.module.css'; // Importación de CSS Module
+import styles from './perfil_heroe.module.css';
 import buttonStyles from './perfil_heroe_buttons.module.css';
 
 const PerfilHeroe: React.FC = () => {
+    const [heroProfile, setHeroProfile] = useState<any>(null);
+    const [error, setError] = useState<string | null>(null);
     const [reviews, setReviews] = useState<Array<{ id: number, text: string, rating: number }>>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const reviewsPerPage = 5;
 
-    const heroProfile = { // Todo esto se cambia con la base de datos
-        id: '12345',
-        name: 'Nombre del Héroe',
-        profileType: 'Héroe',
-        description: 'Breve descripción del héroe.',
-        balance: 1000,
-        stats: {
-            stars: 4.5,
-            requests: 50,
-            serviceQuality: 4.8,
-            punctuality: 4.9,
-        },
-        profilePicture: '/images/perfil_heroe/hero_profile.jpg',
+    const fetchHeroProfile = async () => {
+        try {
+            const response = await fetch('/api/usuario/2');
+            if (!response.ok) {
+                throw new Error('Error al obtener el perfil del héroe');
+            }
+            const data = await response.json();
+            setHeroProfile(data);
+        } catch (err) {
+            console.error(err);
+            setError('Error al obtener el perfil del héroe');
+        }
     };
+
+    useEffect(() => {
+        fetchHeroProfile();
+    }, []);
 
     const handlePayment = (amount: number, heroId: string) => {
         console.log(`Pagando ${amount} al héroe con ID ${heroId}`);
@@ -35,7 +40,6 @@ const PerfilHeroe: React.FC = () => {
 
     return (
         <div className={styles.perfilHeroe}>
-            {/* Centro de Solicitudes */}
             <div className={styles.leftSide}>
                 <div className={styles.contenedorCuadro}>
                     <div className="request-center">
@@ -48,29 +52,32 @@ const PerfilHeroe: React.FC = () => {
                 </div>
             </div>
 
-            {/* Perfil del Héroe */}
             <div className={styles.center}>
                 <div className={styles.contenedorCuadro}>
+                    {error && <p className="error">{error}</p>}
+                    {heroProfile ? (
                         <div className={styles.profileInfo}>
-                            {/* Parte 1: Imagen de perfil */}
                             <div className={styles.profileImage}>
-                            <Image
-                                src={heroProfile.profilePicture}
-                                alt="Foto de perfil"
-                                layout="fill" 
-                                objectFit="cover" 
-                            />
+                                <Image
+                                    src={heroProfile.fotoPerfil}
+                                    alt="Foto de perfil"
+                                    layout="fill"
+                                    objectFit="cover"
+                                />
                             </div>
                             <div className={styles.profileData}>
-                                <h2>{heroProfile.name}</h2>
+                                <h2>{heroProfile.nombre}</h2>
                                 <p>ID: {heroProfile.id}</p>
-                                <p>Tipo de Perfil: {heroProfile.profileType}</p>
-                                <p>{heroProfile.description}</p>
-                            </div>    
+                                <p>Tipo de Perfil: {heroProfile.rol}</p>
+                                <p>{heroProfile.descripcion}</p>
+                                <p>Saldo: {heroProfile.saldo}</p>
+                            </div>
                         </div>
+                    ) : (
+                        <p>Cargando perfil del héroe...</p>
+                    )}
                 </div>
 
-                {/* Reseñas */}
                 <div className={styles.contenedorCuadro}>
                     <div className="reviews">
                         <h3>Reseñas</h3>
@@ -89,20 +96,7 @@ const PerfilHeroe: React.FC = () => {
                 </div>
             </div>
 
-            {/* Estadísticas y Pago */}
             <div className={styles.rightSide}>
-                {/* Estadísticas del Héroe */}
-                <div className={styles.contenedorCuadro}>
-                    <div className="stats">
-                        <h3>Estadísticas del Perfil</h3>
-                        <p>Número de Estrellas: {heroProfile.stats.stars}</p>
-                        <p>Solicitudes Realizadas: {heroProfile.stats.requests}</p>
-                        <p>Calidad de Servicio: {heroProfile.stats.serviceQuality}</p>
-                        <p>Puntualidad: {heroProfile.stats.punctuality}</p>
-                    </div>
-                </div>
-
-                {/* Formulario de Pago */}
                 <div className={styles.contenedorCuadro}>
                     <div className="payment">
                         <h3>Realizar Pago</h3>
@@ -121,10 +115,6 @@ const PerfilHeroe: React.FC = () => {
                 </div>
             </div>
         </div>
-
-
-
-
     );
 };
 
