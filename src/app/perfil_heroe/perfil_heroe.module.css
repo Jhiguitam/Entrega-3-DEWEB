@@ -42,3 +42,45 @@
     z-index: 1;
     /* Por si necesitas aplicar más capas */
 }
+
+.contenedorCuadro {
+    border: 2px solid rgba(0, 0, 0, 0.425);
+    /* Un borde negro con opacidad */
+    padding: 20px;
+    border-radius: 10px;
+    /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(207, 199, 199, 0.1);
+    /* Sombras para profundidad */
+    background-color: rgba(240, 238, 214, 0.9);
+    /* Fondo blanco semitransparente */
+    margin-bottom: 20px;
+    /* Margen inferior */
+    backdrop-filter: blur(5px);
+    /* Efecto de desenfoque */
+}
+
+.profileInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    height: 30vh;
+}
+
+.profileImage {
+    margin-bottom: 10px;
+    flex:1;
+    position: relative;
+    height: 100%;
+
+    /* Espacio entre la imagen y los datos */
+}
+
+.profileData {
+    margin-bottom: 10px;
+    flex:2;
+}
+
+.profileDescription {
+    /* Puedes añadir estilos adicionales si lo deseas */
+}
