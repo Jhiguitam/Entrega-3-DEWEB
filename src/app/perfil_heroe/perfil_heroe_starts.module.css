@@ -1,0 +1,24 @@
+/* perfil_heroe_buttons.module.css */
+.stars {
+    display: flex;
+    cursor: pointer;
+}
+
+.star {
+    font-size: 24px;
+    /* Ajusta el tamaño según tus necesidades */
+    color: gray;
+    /* Color por defecto de las estrellas */
+    transition: color 0.2s ease;
+    /* Suave transición de color */
+}
+
+.star.filled {
+    color: gold;
+    /* Color de las estrellas cuando están seleccionadas */
+}
+
+.star.hover {
+    color: orange;
+    /* Color de las estrellas cuando se pasa el mouse por encima */
+}
