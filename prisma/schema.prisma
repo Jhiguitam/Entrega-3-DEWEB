@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// prisma/schema.prisma
+
+// Define la fuente de datos como PostgreSQL y el cliente de Prisma
+// prisma/schema.prisma
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Usuario {
+  id           String     @id @default(uuid())     // ID único del usuario
+  nombre       String                                  // Nombre del usuario
+  rol          String                                  // Rol del usuario (ej. Héroe)
+  email        String     @unique                      // Email único del usuario
+  saldo        Int                                     // Saldo del usuario
+  pass         String                                  // Contraseña del usuario
+  descripcion  String?                                 // Descripción opcional del usuario
+  fotoPerfil   String?                                  // La foto de perfil almacenada como binario
+  resenas      Resena[]                                // Relación uno-a-muchos con las reseñas
+  estadisticas Estadistica?                            // Relación uno-a-uno con las estadísticas
+}
+
+model Resena {
+  id           String     @id @default(uuid())        // ID único de la reseña
+  contenido    String                                // Contenido de la reseña
+  calificacion Int                                   // Calificación de la reseña
+  fecha        DateTime                              // Fecha de la reseña
+  usuario      Usuario   @relation(fields: [usuarioId], references: [id]) // Relación con Usuario
+  usuarioId    String                                // ID del usuario relacionado
+}
+
+model Estadistica {
+  id                 String   @id @default(uuid())   // ID único de las estadísticas
+  estrellas          Float                                 // Estrellas promedio
+  solicitudes        Int                                   // Número de solicitudes realizadas
+  calidadServicio    Float                                 // Calidad del servicio
+  puntualidad        Float                                 // Puntualidad
+  usuario            Usuario @relation(fields: [usuarioId], references: [id]) // Relación con Usuario
+  usuarioId          String   @unique                      // ID del usuario relacionado
+}

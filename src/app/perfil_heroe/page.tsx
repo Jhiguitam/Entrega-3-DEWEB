@@ -61,7 +61,6 @@ const PerfilHeroe: React.FC = () => {
                                 objectFit="cover" 
                             />
                             </div>
-                            {/* Parte 2: Nombre y ID */}
                             <div className={styles.profileData}>
                                 <h2>{heroProfile.name}</h2>
                                 <p>ID: {heroProfile.id}</p>
