@@ -4,11 +4,16 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export async function GET(request: Request, { params }: { params: { id: string } }) {
-    const { id } = params;
+    const usuarioId = params.id;
 
     try {
         const usuario = await prisma.usuario.findUnique({
-            where: { id },
+            where: {
+                id: usuarioId,
+            },
+            include: {
+                estadisticas: true, // Incluir estadísticas en la consulta
+            },
         });
 
         if (!usuario) {
@@ -17,8 +22,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
 
         return NextResponse.json(usuario);
     } catch (error) {
-        return NextResponse.json({ error: 'Error al obtener el usuario' }, { status: 500 });
-    } finally {
-        await prisma.$disconnect();
+        console.error('Error al obtener el usuario:', error);
+        return NextResponse.json({ message: 'Error al obtener el usuario' }, { status: 500 });
     }
 }

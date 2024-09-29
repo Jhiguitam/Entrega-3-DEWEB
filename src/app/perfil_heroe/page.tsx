@@ -7,11 +7,13 @@ import buttonStyles from './perfil_heroe_buttons.module.css';
 
 const PerfilHeroe: React.FC = () => {
     const [heroProfile, setHeroProfile] = useState<any>(null);
+    const [heroStats, setHeroStats] = useState<any>(null); // Estado para las estadísticas
     const [error, setError] = useState<string | null>(null);
     const [reviews, setReviews] = useState<Array<{ id: number, text: string, rating: number }>>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const reviewsPerPage = 5;
 
+    // Fetch del perfil del héroe
     const fetchHeroProfile = async () => {
         try {
             const response = await fetch('/api/usuario/1');
@@ -26,10 +28,27 @@ const PerfilHeroe: React.FC = () => {
         }
     };
 
+    // Fetch de las estadísticas del héroe
+    const fetchHeroStats = async () => {
+        try {
+            const response = await fetch('/api/estadisticas/1');
+            if (!response.ok) {
+                throw new Error('Error al obtener las estadísticas del héroe');
+            }
+            const data = await response.json();
+            setHeroStats(data);
+        } catch (err) {
+            console.error(err);
+            setError('Error al obtener las estadísticas del héroe');
+        }
+    };
+
     useEffect(() => {
         fetchHeroProfile();
+        fetchHeroStats(); // Llamada a la API de estadísticas
     }, []);
-    // funcion de pago de heroes
+
+    // Función de pago de héroes
     const handlePayment = async (amount: number, heroId: string) => {
         try {
             const response = await fetch('/api/pagos', {
@@ -38,7 +57,7 @@ const PerfilHeroe: React.FC = () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    usuarioId: '1', // Aquí debes pasar el ID del usuario actual
+                    usuarioId: '1', // ID del usuario actual
                     heroeId: heroId,
                     amount: amount,
                 }),
@@ -55,7 +74,6 @@ const PerfilHeroe: React.FC = () => {
             console.error('Error en el pago:', error);
         }
     };
-
 
     const indexOfLastReview = currentPage * reviewsPerPage;
     const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
@@ -134,9 +152,23 @@ const PerfilHeroe: React.FC = () => {
                         >
                             Pagar
                         </button>
-
                     </div>
                 </div>
+
+                {/* Estadísticas del Héroe */}
+                {heroStats ? (
+                    <div className={styles.contenedorCuadro}>
+                        <div className="stats">
+                            <h3>Estadísticas del Perfil</h3>
+                            <p>Número de Estrellas: {heroStats.estrellas}</p>
+                            <p>Solicitudes Realizadas: {heroStats.solicitudes}</p>
+                            <p>Calidad de Servicio: {heroStats.calidadServicio}</p>
+                            <p>Puntualidad: {heroStats.puntualidad}</p>
+                        </div>
+                    </div>
+                ) : (
+                    <p>Cargando estadísticas del héroe...</p>
+                )}
             </div>
         </div>
     );
