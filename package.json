@@ -1,43 +1,27 @@
 {
-  "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ]
-    }
+  "name": "your-project-name",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "seed.mts"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
   "dependencies": {
-    "esm": "^3.2.25"
+    "@prisma/client": "^5.20.0",
+    "@types/react": "^18.3.10",
+    "autoprefixer": "^10.4.20",
+    "next": "^14.2.13",
+    "postcss": "^8.4.47",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.13"
+  },
+  "devDependencies": {
+    "@types/next": "^8.0.7",
+    "@types/node": "^22.7.4",
+    "esm": "^3.2.25",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2"
   }
 }
