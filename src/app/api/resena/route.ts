@@ -3,23 +3,10 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-// Obtener reseñas por ID de héroe
+// Obtener todas las reseñas
 export async function GET(request: Request) {
-    const { searchParams } = new URL(request.url);
-    const heroeId = searchParams.get('heroeId');
-
-    // Verificamos si heroeId es nulo o una cadena vacía
-    if (!heroeId) {
-        return NextResponse.json({ error: 'heroeId es requerido.' }, { status: 400 });
-    }
-
     try {
-        const reseñas = await prisma.resena.findMany({
-            where: {
-                usuarioId: heroeId, // Usamos el heroeId para filtrar las reseñas
-            },
-        });
-
+        const reseñas = await prisma.resena.findMany();
         return NextResponse.json(reseñas, { status: 200 });
     } catch (error) {
         console.error('Error al obtener las reseñas:', error);

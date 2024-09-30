@@ -1,0 +1,29 @@
+/* estilos para el cuadro de reseñas */
+.reseñaCuadro {
+    background-color: #f9f9f9;
+    /* Color de fondo claro */
+    border: 1px solid #ddd;
+    /* Borde gris claro */
+    border-radius: 8px;
+    /* Bordes redondeados */
+    padding: 16px;
+    /* Espaciado interno */
+    margin: 16px 0;
+    /* Margen superior e inferior */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Sombra para profundidad */
+}
+
+.reseñaContenido {
+    font-size: 16px;
+    /* Tamaño de texto para el contenido */
+    margin-bottom: 8px;
+    /* Margen inferior para separar contenido */
+}
+
+.reseñaCalificacion {
+    font-weight: bold;
+    /* Texto en negrita */
+    color: #0e0b07;
+    /* Color para la calificación (puedes cambiarlo) */
+}

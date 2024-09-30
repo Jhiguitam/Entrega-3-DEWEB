@@ -1,5 +1,6 @@
 /* perfil_heroe_buttons.module.css */
 
+/* Estilo para el botón de pagar */
 .pagarButton {
     background-color: #4CAF50;
     /* Color verde */
@@ -34,6 +35,7 @@
     /* Pequeño efecto de presión */
 }
 
+/* Estilo para el botón de centro de solicitudes */
 .centroSolicitudesButton {
     background-color: #2196F3;
     /* Color azul */
@@ -55,4 +57,39 @@
     background-color: #1565c0;
     box-shadow: 0 5px #666;
     transform: translateY(2px);
+}
+
+/* Estilo para el botón de enviar reseña */
+.enviarResenaButton {
+    background-color: #ff9800;
+    /* Color naranja */
+    color: white;
+    /* Texto blanco */
+    padding: 12px 24px;
+    /* Espaciado */
+    font-size: 16px;
+    /* Tamaño del texto */
+    border: none;
+    /* Sin borde */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    cursor: pointer;
+    /* Cursor en forma de mano */
+    transition: background-color 0.3s ease;
+    /* Efecto de transición en el hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Sombra para darle algo de profundidad */
+}
+
+.enviarResenaButton:hover {
+    background-color: #fb8c00;
+    /* Color naranja más oscuro al pasar el ratón */
+}
+
+.enviarResenaButton:active {
+    background-color: #f57c00;
+    /* Color cuando se hace clic */
+    box-shadow: 0 5px #666;
+    transform: translateY(2px);
+    /* Pequeño efecto de presión */
 }
