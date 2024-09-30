@@ -13,7 +13,7 @@ const PerfilHeroe: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [reviews, setReviews] = useState<Array<{ id: string, contenido: string, calificacion: number }>>([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const reviewsPerPage = 5;
+    const reviewsPerPage = 2; // Cambiar a 2 reseñas por página
 
     // Estados para el formulario de reseñas
     const [reviewText, setReviewText] = useState('');
@@ -77,17 +77,10 @@ const PerfilHeroe: React.FC = () => {
         }
     }, [heroId]);
 
-
     useEffect(() => {
         fetchHeroProfile();
         fetchHeroStats();
     }, []);
-
-    useEffect(() => {
-        if (heroId) {
-            fetchHeroReviews(); // Llama a obtener reseñas cuando obtienes el perfil
-        }
-    }, [heroId]);
 
     const handlePayment = async () => {
         const amountInput = document.getElementById('payment-amount') as HTMLInputElement;
@@ -245,10 +238,12 @@ const PerfilHeroe: React.FC = () => {
                                 <p className={resenaStyles.reseñaCalificacion}>{review.contenido}</p>
                             </div>
                         ))}
+                        <div className={resenaStyles.pagination}>
                         <div className="pagination">
                             {Array.from({ length: Math.ceil(reviews.length / reviewsPerPage) }, (_, index) => (
                                 <button key={index} onClick={() => setCurrentPage(index + 1)}>{index + 1}</button>
                             ))}
+                        </div>
                         </div>
                     </div>
                 </div>

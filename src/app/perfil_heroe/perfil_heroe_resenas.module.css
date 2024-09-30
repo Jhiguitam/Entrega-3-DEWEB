@@ -27,3 +27,36 @@
     color: #0e0b07;
     /* Color para la calificación (puedes cambiarlo) */
 }
+
+.pagination {
+    display: flex;
+    /* Asegúrate de que los elementos se alineen horizontalmente */
+    justify-content: center;
+    /* Centra los botones horizontalmente */
+    margin: 10px 0;
+    /* Espaciado vertical alrededor de la paginación */
+}
+
+.pagination button {
+    background-color: red;
+    /* Color de fondo rojo */
+    color: white;
+    /* Color del texto blanco */
+    border: none;
+    /* Sin borde */
+    border-radius: 5px;
+    /* Esquinas redondeadas */
+    padding: 10px 15px;
+    /* Espaciado interno */
+    margin: 0 5px;
+    /* Espaciado horizontal entre botones */
+    cursor: pointer;
+    /* Cambia el cursor al pasar sobre el botón */
+    transition: background-color 0.3s;
+    /* Efecto de transición para el fondo */
+}
+
+.pagination button:hover {
+    background-color: darkred;
+    /* Cambia el color de fondo al pasar el mouse */
+}
